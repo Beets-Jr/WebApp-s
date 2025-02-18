@@ -52,6 +52,54 @@ Template base para projetos da Beets Jr, com frontend em React e backend em Node
 └── README.md          # Este arquivo
 ```
 
+## 🔥 Configuração do Firebase
+
+### 1. Criar Projeto no Firebase Console
+1. Acesse o [Firebase Console](https://console.firebase.google.com/)
+2. Clique em "Adicionar projeto"
+3. Digite o nome do projeto (ex: "baserepo-dev")
+4. Desative o Google Analytics (opcional)
+5. Clique em "Criar projeto"
+
+### 2. Configurar Authentication
+1. No menu lateral, clique em "Authentication"
+2. Em "Sign-in method", habilite "Email/Password"
+
+### 3. Configurar Firestore
+1. No menu lateral, clique em "Firestore Database"
+2. Clique em "Criar banco de dados"
+3. Escolha "Iniciar no modo de teste"
+4. Selecione a região mais próxima (ex: "us-east1")
+
+### 4. Gerar Credenciais do Service Account
+1. No menu lateral, clique em "Configurações do Projeto" (ícone de engrenagem)
+2. Vá para a aba "Contas de serviço"
+3. Clique em "Gerar nova chave privada"
+4. Salve o arquivo JSON gerado
+
+### 5. Configurar Variáveis de Ambiente
+1. No backend, crie um arquivo `.env` baseado no `.env.example`
+2. Preencha as variáveis com os dados do arquivo JSON baixado:
+```env
+FIREBASE_TYPE="service_account"
+FIREBASE_PROJECT_ID="seu-projeto-id"
+FIREBASE_PRIVATE_KEY_ID="chave-privada-id"
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nSua-Chave-Privada\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL="email-do-firebase@seu-projeto.iam.gserviceaccount.com"
+FIREBASE_CLIENT_ID="seu-client-id"
+FIREBASE_AUTH_URI="https://accounts.google.com/o/oauth2/auth"
+FIREBASE_TOKEN_URI="https://oauth2.googleapis.com/token"
+FIREBASE_AUTH_PROVIDER_X509_CERT_URL="https://www.googleapis.com/oauth2/v1/certs"
+FIREBASE_CLIENT_X509_CERT_URL="https://www.googleapis.com/robot/v1/metadata/x509/seu-projeto.iam.gserviceaccount.com"
+FIREBASE_UNIVERSE_DOMAIN="googleapis.com"
+```
+
+⚠️ **IMPORTANTE:**
+- Nunca compartilhe ou comite o arquivo de credenciais do Firebase
+- Mantenha o arquivo `.env` no `.gitignore`
+- Em produção, use variáveis de ambiente seguras
+- Faça backup das credenciais em local seguro
+
 ## 🔧 Instalação
 
 1. Clone o repositório
