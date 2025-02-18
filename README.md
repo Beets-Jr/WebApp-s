@@ -1,75 +1,243 @@
-# BaseRepo - Beets Jr
+# Template Base de Projetos
 
-## 📋 Sobre
-Este repositório serve como uma estrutura base (template) para projetos web da Beets Jr. Ele contém a organização padrão de pastas e arquivos que devem ser seguidos em todos os projetos web da empresa, garantindo consistência e facilitando a manutenção.
+Template base para projetos da Beets Jr, com frontend em React e backend em Node.js.
 
-## 🎯 Objetivo
-Padronizar a estrutura inicial dos projetos web, economizando tempo na configuração inicial e garantindo boas práticas de organização de código desde o início do desenvolvimento.
+## 🚀 Tecnologias
+
+### Frontend
+- React
+- Material-UI
+- Styled Components
+- React Router DOM
+- Axios
+- TypeScript
+- Vite
+
+### Backend
+- Node.js
+- Express
+- TypeScript
+- Prisma
+- PostgreSQL
+- JWT
+- Jest
+- Docker
 
 ## 📁 Estrutura do Projeto
-O projeto está organizado da seguinte forma:
 
-Backend:
-```bash
-src/
-├── controllers/
-├── database/
-├── entities/
-├── interfaces/
-├── repositories/
-├── routes/
-├── server.ts
+```
+.
+├── frontend/           # Aplicação React
+│   ├── src/
+│   │   ├── components/
+│   │   ├── contexts/
+│   │   ├── hooks/
+│   │   ├── pages/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   └── utils/
+│   └── README.md
+│
+├── backend/            # API Node.js
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── interfaces/
+│   │   ├── middlewares/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   └── services/
+│   └── README.md
+│
+└── README.md          # Este arquivo
 ```
 
-Frontend:
+## 🔧 Instalação
+
+1. Clone o repositório
 ```bash
-src/
-├── assets/
-├── components/
-├── contexts/
-├── pages/
-├── routes/
-├── services/
-├── App.css
-├── App.tsx
-├── declarations.d.ts
-├── index.css
-├── main.tsx
+git clone https://github.com/seu-usuario/seu-repo.git
+cd seu-repo
 ```
 
-## 🚀 Como Usar Este Template
-
-### 1. Clone o repositório
+2. Instale as dependências do frontend
 ```bash
-git clone url-deste-repositorio
+cd frontend
+npm install
+# ou
+yarn install
 ```
 
-### 2. Entre na pasta do projeto
+3. Instale as dependências do backend
 ```bash
-cd nome-do-seu-projeto
+cd ../backend
+npm install
+# ou
+yarn install
 ```
 
-### 3. Desvincule do repositório base
+4. Configure as variáveis de ambiente
 ```bash
-git remote remove origin
+# Frontend
+cd ../frontend
+cp .env.example .env
+
+# Backend
+cd ../backend
+cp .env.example .env
 ```
 
-### 4. Vincule ao novo repositório do seu projeto, que o gerente de projetos criará
+5. Execute as migrações do banco de dados
 ```bash
-git remote add origin url-do-novo-repositorio
+cd ../backend
+npx prisma migrate dev
 ```
 
-### 5. Push do código para o novo repositório
+6. Inicie os servidores
+
+Em um terminal:
 ```bash
-git push -u origin main
+cd frontend
+npm run dev
+# ou
+yarn dev
 ```
 
-## 📝 Observações
-- Este é apenas um template inicial. Adapte a estrutura conforme as necessidades específicas do seu projeto.
-- Siga os padrões de código estabelecidos aqui, bem como os padrões de organização de pastas e arquivos.
+Em outro terminal:
+```bash
+cd backend
+npm run dev
+# ou
+yarn dev
+```
+
+## 📚 Scripts Disponíveis
+
+### Frontend
+- `dev`: Inicia o servidor de desenvolvimento
+- `build`: Gera a build de produção
+- `preview`: Visualiza a build de produção
+- `lint`: Executa o linter
+- `test`: Executa os testes
+
+### Backend
+- `dev`: Inicia o servidor de desenvolvimento
+- `build`: Gera a build de produção
+- `start`: Inicia o servidor em produção
+- `test`: Executa os testes
+- `lint`: Executa o linter
+- `migrate`: Executa as migrações do banco
+
+## 🌐 Endpoints
+
+### Autenticação
+- `POST /api/auth/login`: Login de usuário
+- `POST /api/auth/register`: Registro de usuário
+- `POST /api/auth/refresh`: Refresh token
+- `POST /api/auth/logout`: Logout de usuário
+
+### Usuários
+- `GET /api/users`: Lista usuários
+- `GET /api/users/:id`: Obtém usuário
+- `POST /api/users`: Cria usuário
+- `PUT /api/users/:id`: Atualiza usuário
+- `DELETE /api/users/:id`: Remove usuário
+
+### Dashboard
+- `GET /api/dashboard`: Dados do dashboard
+- `GET /api/dashboard/stats`: Estatísticas
+- `GET /api/dashboard/chart`: Dados do gráfico
+
+## 🔒 Autenticação
+
+A autenticação é feita via JWT (JSON Web Token):
+
+1. O usuário faz login com email e senha
+2. O backend retorna um token JWT
+3. O token é armazenado no localStorage
+4. O token é enviado no header `Authorization` em todas as requisições
+5. O token expira após 24 horas
+
+## 🎨 Temas
+
+A aplicação utiliza o Material-UI para tematização:
+
+- Cores primárias e secundárias customizadas
+- Tipografia personalizada
+- Componentes estilizados
+- Modo escuro/claro
+- Responsividade
+
+## ⚡ Performance
+
+Otimizações implementadas:
+
+### Frontend
+- Code splitting
+- Lazy loading
+- Memoização
+- Tree shaking
+- Bundle optimization
+
+### Backend
+- Caching
+- Rate limiting
+- Compression
+- Connection pooling
+- Query optimization
+
+## 🔐 Segurança
+
+Medidas de segurança:
+
+- HTTPS
+- JWT
+- CORS
+- Helmet
+- Rate limiting
+- Input validation
+- SQL injection protection
+- XSS protection
+- CSRF protection
+- Password hashing
+- Error masking
+
+## 🧪 Testes
+
+### Frontend
+- Jest
+- React Testing Library
+- Cypress
+- Testes unitários
+- Testes de integração
+- Testes e2e
+
+### Backend
+- Jest
+- Supertest
+- Testes unitários
+- Testes de integração
+- Testes e2e
+
+## 📖 Documentação
+
+Cada pasta contém seu próprio README com:
+
+- Propósito
+- Estrutura
+- Exemplos
+- Boas práticas
+- Padrões
+- Responsabilidades
 
 ## 🤝 Contribuição
-Para contribuir com melhorias neste template base, por favor, entre em contato com o diretor de Projetos da Beets Jr, Gustavo Moraes.
 
-## 📄 Licença
-Este projeto está sob a licença da Beets Jr.
+1. Fork o projeto
+2. Crie uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
+4. Push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## 📝 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.

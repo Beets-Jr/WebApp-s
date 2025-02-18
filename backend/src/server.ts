@@ -1,15 +1,25 @@
-import express from "express";
-import cors from "cors";
-import routers from "./routes/routes";
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { router } from './routes';
+import { errorMiddleware } from './middlewares/error';
 
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
-app.use(routers);
-
-app.listen(3333, () => {
-  console.log("Server started on port 3333.");
+// Rota de teste
+app.get('/', (req, res) => {
+  res.json({ message: 'Servidor funcionando!' });
 });
+
+app.use('/api', router);
+
+app.use(errorMiddleware);
+
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando na porta ${PORT}`);
+}); 
