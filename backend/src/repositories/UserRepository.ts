@@ -1,74 +1,101 @@
-import User from "../entities/User";
-import IUser from "../interfaces/User/IUser";
-import { AppDataSource } from "../database/data-source";
-import IUserResponse from "../interfaces/User/IUserResponse";
+import { db, auth } from '../config/firebase';
+import { User, CreateUserDTO, UpdateUserDTO } from '../interfaces/User';
 
-const userRepository = AppDataSource.getRepository(User);
+export class UserRepository {
+  private collection = db.collection('users');
 
-// Buscar todos os usuários
-const getUsers = (): Promise<IUser[]> => {
-  return userRepository.find();
-};
+  async create(data: CreateUserDTO): Promise<User> {
+    try {
+      // Criar usuário no Firebase Auth
+      const userRecord = await auth.createUser({
+        email: data.email,
+        password: data.password,
+        displayName: data.name,
+      });
 
-// Buscar um usuário dado seu email
-const getUserByEmail = async (email: string): Promise<User | null> => {
-  const user = await userRepository.findOneBy({ email });
-  return user || null;
-};
+      // Criar documento no Firestore
+      const user: Omit<User, 'id'> = {
+        name: data.name,
+        email: data.email,
+        role: data.role || 'user',
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
 
-// Trazer algumas informações do usuário sado seu email
-const getUserInfoByEmail = async (
-  email: string
-): Promise<IUserResponse | null> => {
-  const user = await userRepository.findOneBy({ email });
+      await this.collection.doc(userRecord.uid).set(user);
 
-  // Criar um novo objeto com os campos desejados
-  return {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    image: user.image
-  };
-};
+      return {
+        id: userRecord.uid,
+        ...user,
+      };
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
 
-// Criar um usuário
-const createUser = async (userData: IUser): Promise<IUser> => {
-  const newUser = userRepository.create(userData); // Cria uma instância do usuário
-  await userRepository.save(newUser); // Salva no bd
-  return newUser;
-};
+  async findAll(): Promise<User[]> {
+    try {
+      const snapshot = await this.collection.get();
+      return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: doc.data().createdAt.toDate(),
+        updatedAt: doc.data().updatedAt.toDate(),
+      })) as User[];
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
 
-// Atualizar um usuário
-const updateUser = async (
-  id: number,
-  userData: IUser
-): Promise<IUser | null> => {
-  const user = await userRepository.findOneBy({ id });
-  if (!user) return null;
+  async findById(id: string): Promise<User | null> {
+    try {
+      const doc = await this.collection.doc(id).get();
+      if (!doc.exists) return null;
 
-  // Atualiza os campos do usuário
-  user.name = userData.name;
-  user.email = userData.email;
+      const data = doc.data();
+      return {
+        id: doc.id,
+        ...data,
+        createdAt: data?.createdAt.toDate(),
+        updatedAt: data?.updatedAt.toDate(),
+      } as User;
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
 
-  await userRepository.save(user); // Salva as mudanças no bd
-  return user;
-};
+  async update(id: string, data: UpdateUserDTO): Promise<User> {
+    try {
+      const user = await this.findById(id);
+      if (!user) throw new Error('Usuário não encontrado');
 
-// Deletar um usuário
-const deleteUser = async (id: number): Promise<boolean> => {
-  const user = await userRepository.findOneBy({ id });
+      const updateData = {
+        ...data,
+        updatedAt: new Date(),
+      };
 
-  if (!user) return false;
+      await this.collection.doc(id).update(updateData);
 
-  await userRepository.remove(user);
-  return true;
-};
+      return {
+        ...user,
+        ...updateData,
+      };
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
 
-export default {
-  getUsers,
-  getUserByEmail,
-  getUserInfoByEmail,
-  createUser,
-  updateUser,
-  deleteUser,
-};
+  async delete(id: string): Promise<void> {
+    try {
+      const user = await this.findById(id);
+      if (!user) throw new Error('Usuário não encontrado');
+
+      await Promise.all([
+        auth.deleteUser(id),
+        this.collection.doc(id).delete(),
+      ]);
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
+  }
+} 
