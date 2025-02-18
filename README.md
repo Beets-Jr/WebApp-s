@@ -238,6 +238,9 @@ Cada pasta contém seu próprio README com:
 4. Push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
 
+> Obs.: Em caso de dúvidas ou sugestões, tratar com Gustavo Moraes, Diretor de Projetos.
+> Email: gustavo.moraes@beetsjr.com
+
 ## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
