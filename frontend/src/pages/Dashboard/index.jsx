@@ -7,9 +7,9 @@ import {
   Fade,
   Grow
 } from '@mui/material';
-import { useAuth } from '../../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();

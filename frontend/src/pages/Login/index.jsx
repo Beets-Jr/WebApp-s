@@ -9,7 +9,7 @@ import {
   Box,
   Link as MuiLink,
 } from '@mui/material';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function Login() {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useAuth } from '../contexts/AuthContext';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Users from '../pages/Users';
 import Dashboard from '../pages/Dashboard';
+import { useAuth } from '../hooks/useAuth';
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
