@@ -38,18 +38,19 @@ Template base para projetos da Beets Jr, com frontend em React e backend em Node
 │   │   └── utils/
 │   └── README.md
 │
-├── backend/            # API Node.js
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── interfaces/
-│   │   ├── middlewares/
-│   │   ├── repositories/
-│   │   ├── routes/
-│   │   └── services/
-│   └── README.md
-│
-└── README.md          # Este arquivo
+├── functions/
+│   ├── backend/            # API Node.js
+│   │   ├── src/
+│   │   │   ├── config/
+│   │   │   ├── controllers/
+│   │   │   ├── interfaces/
+│   │   │   ├── middlewares/
+│   │   │   ├── repositories/
+│   │   │   ├── routes/
+│   │   │   └── services/
+│   │   └── README.md
+│   │
+│   └── README.md          # Este arquivo
 ```
 
 ## 🔥 Configuração do Firebase
@@ -95,7 +96,7 @@ FIREBASE_UNIVERSE_DOMAIN="googleapis.com"
 ```
 
 ⚠️ **IMPORTANTE:**
-- Nunca compartilhe ou comite o arquivo de credenciais do Firebase
+- NUNCA compartilhe ou comite o arquivo de credenciais do Firebase
 - Mantenha o arquivo `.env` no `.gitignore`
 - Em produção, use variáveis de ambiente seguras
 - Faça backup das credenciais em local seguro
