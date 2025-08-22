@@ -23,6 +23,5 @@ yarn-error.log*
 logs
 *.log
 
-# System Files
-.DS_Store
-Thumbs.db
+# Credentials
+serviceAccountKey.json
