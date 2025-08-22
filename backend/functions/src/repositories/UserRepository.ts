@@ -36,7 +36,7 @@ export class UserRepository {
   async findAll(): Promise<User[]> {
     try {
       const snapshot = await this.collection.get();
-      return snapshot.docs.map(doc => ({
+      return snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
         createdAt: doc.data().createdAt.toDate(),
@@ -98,4 +98,4 @@ export class UserRepository {
       throw new Error(error.message);
     }
   }
-} 
+}

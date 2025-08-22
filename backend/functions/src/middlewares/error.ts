@@ -11,4 +11,4 @@ export function errorMiddleware(
     status: 'error',
     message: 'Erro interno do servidor',
   });
-} 
+}

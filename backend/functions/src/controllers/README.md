@@ -1,6 +1,7 @@
 # Controladores (Controllers)
 
 Esta pasta contém os controladores da aplicação, que são responsáveis por:
+
 - Receber requisições HTTP
 - Processar parâmetros e dados de entrada
 - Coordenar a lógica de negócio através dos serviços
@@ -9,9 +10,11 @@ Esta pasta contém os controladores da aplicação, que são responsáveis por:
 ## 🗂 Arquivos
 
 ### `UserController.ts`
+
 Controlador responsável por gerenciar operações relacionadas a usuários.
 
 #### Endpoints:
+
 - `POST /users` - Criação de usuário
   - Valida dados de entrada
   - Coordena criação no Auth e Firestore
@@ -36,6 +39,7 @@ Controlador responsável por gerenciar operações relacionadas a usuários.
   - Retorna status apropriado
 
 ## 🔧 Propósito
+
 - Gerenciar o ciclo de vida das requisições HTTP
 - Validar dados de entrada
 - Coordenar chamadas aos serviços
@@ -43,6 +47,7 @@ Controlador responsável por gerenciar operações relacionadas a usuários.
 - Tratar erros e exceções
 
 ## 📋 Boas Práticas
+
 1. Manter controllers enxutos (thin controllers)
 2. Delegar lógica de negócio para services
 3. Implementar tratamento adequado de erros
@@ -52,6 +57,7 @@ Controlador responsável por gerenciar operações relacionadas a usuários.
 7. Implementar logs apropriados
 
 ## 🔄 Fluxo Típico
+
 1. Recebe requisição HTTP
 2. Valida dados/parâmetros
 3. Chama serviço apropriado
@@ -59,9 +65,10 @@ Controlador responsável por gerenciar operações relacionadas a usuários.
 5. Retorna resposta formatada
 
 ## 🛡️ Responsabilidades
+
 - Parsing de parâmetros
 - Validação básica de entrada
 - Chamada aos serviços corretos
 - Formatação de resposta
 - Tratamento de erros HTTP
-- Gestão de status codes 
+- Gestão de status codes

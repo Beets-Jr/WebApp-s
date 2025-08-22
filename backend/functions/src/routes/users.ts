@@ -15,4 +15,4 @@ usersRouter.get('/:id', userController.findById.bind(userController));
 usersRouter.put('/:id', userController.update.bind(userController));
 usersRouter.delete('/:id', userController.delete.bind(userController));
 
-export { usersRouter }; 
+export { usersRouter };

@@ -5,9 +5,11 @@ Esta pasta contém os middlewares do Express, que são funções intermediárias
 ## 🗂 Arquivos
 
 ### `auth.ts`
+
 Middleware de autenticação que protege rotas privadas.
 
 #### Funcionalidades:
+
 - Verifica presença do token JWT
 - Valida token com Firebase Auth
 - Adiciona informações do usuário à requisição
@@ -15,6 +17,7 @@ Middleware de autenticação que protege rotas privadas.
 - Gerencia diferentes níveis de acesso
 
 #### Uso:
+
 ```typescript
 // Proteger uma rota
 router.get('/private', authMiddleware, controller.method);
@@ -26,9 +29,11 @@ router.get('/me', authMiddleware, (req, res) => {
 ```
 
 ### `error.ts`
+
 Middleware global de tratamento de erros.
 
 #### Funcionalidades:
+
 - Captura erros não tratados
 - Formata mensagens de erro
 - Determina status HTTP apropriado
@@ -36,6 +41,7 @@ Middleware global de tratamento de erros.
 - Respostas padronizadas
 
 #### Exemplo de Resposta:
+
 ```json
 {
   "status": "error",
@@ -45,6 +51,7 @@ Middleware global de tratamento de erros.
 ```
 
 ## 🔧 Propósito
+
 - Processar requisições antes/depois dos controllers
 - Adicionar funcionalidades transversais
 - Validar requisições
@@ -52,6 +59,7 @@ Middleware global de tratamento de erros.
 - Interromper ciclo de requisição quando necessário
 
 ## 📋 Boas Práticas
+
 1. Manter middlewares focados e específicos
 2. Documentar comportamentos e efeitos colaterais
 3. Tratar erros adequadamente
@@ -61,6 +69,7 @@ Middleware global de tratamento de erros.
 7. Seguir o princípio de responsabilidade única
 
 ## 🔄 Fluxo de Execução
+
 1. Requisição recebida
 2. Middlewares globais
 3. Middlewares específicos da rota
@@ -69,6 +78,7 @@ Middleware global de tratamento de erros.
 6. Resposta enviada
 
 ## 🛡️ Responsabilidades
+
 - Autenticação e Autorização
 - Validação de dados
 - Logging
@@ -77,4 +87,4 @@ Middleware global de tratamento de erros.
 - Cache
 - Compressão
 - CORS
-- Rate Limiting 
+- Rate Limiting
