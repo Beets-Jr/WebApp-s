@@ -1,4 +1,3 @@
-import React from 'react';
 import { 
   Container, 
   Paper, 
@@ -60,7 +59,7 @@ export default function Dashboard() {
               para começar seus projetos com as melhores práticas de desenvolvimento.
             </Typography>
             <Typography variant="body1" sx={{ fontStyle: 'italic', mt: 2 }}>
-              "Aproveite esta base sólida para construir coisas incríveis! 🚀"
+              &quot;Aproveite esta base sólida para construir coisas incríveis! 🚀&quot;
             </Typography>
           </Paper>
         </Grow>

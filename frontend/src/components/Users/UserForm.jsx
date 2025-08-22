@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Dialog,
   DialogTitle,
@@ -91,4 +92,15 @@ export default function UserForm({ open, onClose, onSubmit, initialData }) {
       </form>
     </Dialog>
   );
-} 
+}
+
+UserForm.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  initialData: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    role: PropTypes.string,
+  }),
+};
