@@ -1,5 +1,5 @@
 import { UserRepository } from '../repositories/UserRepository';
-import { User, CreateUserDTO, UpdateUserDTO } from '../interfaces/User';
+import { User, CreateUserDTO } from '../interfaces/User';
 
 export class UserService {
   private userRepository: UserRepository;
@@ -9,18 +9,20 @@ export class UserService {
   }
 
   async create(data: CreateUserDTO): Promise<User> {
-    // Validações básicas
-    if (!data.name || !data.email || !data.password) {
-      throw new Error('Nome, email e senha são obrigatórios');
+    // Validações de senha foram removidas, pois a senha não é mais manipulada aqui.
+    if (!data.name || !data.email || !data.id) {
+      throw new Error('ID, nome e email são obrigatórios');
     }
 
-    if (data.password.length < 6) {
-      throw new Error('A senha deve ter no mínimo 6 caracteres');
+    const userExists = await this.userRepository.findById(data.id);
+    if (userExists) {
+      throw new Error('Usuário já existe no banco de dados.');
     }
 
     return this.userRepository.create(data);
   }
 
+  // ... os outros métodos (findAll, findById, update, delete) permanecem iguais ...
   async findAll(): Promise<User[]> {
     return this.userRepository.findAll();
   }
@@ -33,12 +35,10 @@ export class UserService {
     return user;
   }
 
-  async update(id: string, data: UpdateUserDTO): Promise<User> {
-    // Validações básicas
+  async update(id: string, data: Partial<CreateUserDTO>): Promise<User> {
     if (Object.keys(data).length === 0) {
       throw new Error('Nenhum dado para atualizar');
     }
-
     return this.userRepository.update(id, data);
   }
 

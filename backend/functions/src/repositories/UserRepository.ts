@@ -1,4 +1,4 @@
-import { db, auth } from '../config/firebase';
+import { auth, db } from '@/config/firebase';
 import { User, CreateUserDTO, UpdateUserDTO } from '../interfaces/User';
 
 export class UserRepository {
@@ -6,15 +6,11 @@ export class UserRepository {
 
   async create(data: CreateUserDTO): Promise<User> {
     try {
-      // Criar usuário no Firebase Auth
-      const userRecord = await auth.createUser({
-        email: data.email,
-        password: data.password,
-        displayName: data.name,
-      });
+      // REMOVIDO: A criação do usuário no Firebase Auth não acontece mais aqui.
+      // O usuário já foi criado pelo frontend.
 
-      // Criar documento no Firestore
-      const user: Omit<User, 'id'> = {
+      // Apenas cria o documento no Firestore com os dados recebidos.
+      const userData: Omit<User, 'id'> = {
         name: data.name,
         email: data.email,
         role: data.role || 'user',
@@ -22,17 +18,19 @@ export class UserRepository {
         updatedAt: new Date(),
       };
 
-      await this.collection.doc(userRecord.uid).set(user);
+      // Usa o ID do Firebase (que veio do token) como ID do documento.
+      await this.collection.doc(data.id).set(userData);
 
       return {
-        id: userRecord.uid,
-        ...user,
+        id: data.id,
+        ...userData,
       };
     } catch (error: any) {
       throw new Error(error.message);
     }
   }
 
+  // ... os outros métodos (findAll, findById, update, delete) permanecem praticamente iguais ...
   async findAll(): Promise<User[]> {
     try {
       const snapshot = await this.collection.get();
@@ -90,9 +88,10 @@ export class UserRepository {
       const user = await this.findById(id);
       if (!user) throw new Error('Usuário não encontrado');
 
+      // Esta é uma operação destrutiva e poderosa. Mantenha-a bem protegida.
       await Promise.all([
-        auth.deleteUser(id),
-        this.collection.doc(id).delete(),
+        auth.deleteUser(id), // Deleta do Firebase Auth
+        this.collection.doc(id).delete(), // Deleta do Firestore
       ]);
     } catch (error: any) {
       throw new Error(error.message);

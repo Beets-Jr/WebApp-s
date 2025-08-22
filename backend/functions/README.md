@@ -87,7 +87,6 @@ Utilizamos Firebase:
 
 Otimizações implementadas:
 
-
 ## 🔐 Segurança
 
 Medidas de segurança:
@@ -96,16 +95,13 @@ Medidas de segurança:
 
 ## 🧪 Testes
 
-
 ## 📊 Logging
 
 Sistema de logs:
 
-
 ## 🐳 Docker
 
 Containerização com Docker:
-
 
 ## 📖 Documentação
 
