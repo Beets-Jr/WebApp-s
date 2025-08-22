@@ -1,4 +1,4 @@
-import { auth, db } from '@/config/firebase';
+import { auth, db } from 'src/config/firebase';
 import { User, CreateUserDTO, UpdateUserDTO } from '../interfaces/User';
 
 export class UserRepository {
