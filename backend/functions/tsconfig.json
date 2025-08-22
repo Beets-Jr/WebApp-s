@@ -7,10 +7,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "removeComments": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./src/@types"
-    ],
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "experimentalDecorators": true,
@@ -22,7 +19,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*"
-  ]
-} 
+  "include": ["src/**/*"]
+}

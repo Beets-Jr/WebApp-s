@@ -26,15 +26,21 @@ src/
   └── services/       # Lógica de negócio
 ```
 
+## Prettier e ESLint
+
+rodar `npx prettier --write .` em erros de linter, até se habituar a corrigi-los por conta
+
 ## 🔧 Instalação
 
 1. Clone o repositório
+
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo/backend
+git clone https://github.com/Beets-Jr/WebApp-s
+cd WebApp-s/backend/functions
 ```
 
 2. Instale as dependências
+
 ```bash
 npm install
 # ou
@@ -42,21 +48,16 @@ yarn install
 ```
 
 3. Configure as variáveis de ambiente
+
 ```bash
 cp .env.example .env
 # Edite o arquivo .env com suas configurações
 ```
 
-4. Execute as migrações do banco de dados
-```bash
-npx prisma migrate dev
-```
+4. Inicie o servidor de desenvolvimento
 
-5. Inicie o servidor de desenvolvimento
 ```bash
 npm run dev
-# ou
-yarn dev
 ```
 
 ## 📚 Scripts Disponíveis
@@ -70,108 +71,41 @@ yarn dev
 
 ## 🌐 Endpoints
 
-### Autenticação
-- `POST /api/auth/login`: Login de usuário
-- `POST /api/auth/register`: Registro de usuário
-- `POST /api/auth/refresh`: Refresh token
-- `POST /api/auth/logout`: Logout de usuário
-
 ### Usuários
+
 - `GET /api/users`: Lista usuários
 - `GET /api/users/:id`: Obtém usuário
 - `POST /api/users`: Cria usuário
 - `PUT /api/users/:id`: Atualiza usuário
 - `DELETE /api/users/:id`: Remove usuário
 
-### Dashboard
-- `GET /api/dashboard`: Dados do dashboard
-- `GET /api/dashboard/stats`: Estatísticas
-- `GET /api/dashboard/chart`: Dados do gráfico
-
-## 🔒 Autenticação
-
-A autenticação é feita via JWT (JSON Web Token):
-
-1. O usuário envia credenciais
-2. O servidor valida e gera token
-3. O token é enviado ao cliente
-4. O cliente envia token no header
-5. O servidor valida token em cada request
-
 ## 🗃️ Banco de Dados
 
-Utilizamos PostgreSQL com Prisma:
-
-- Migrations automáticas
-- Type safety
-- Query builder
-- Modelagem relacional
-- Seeds para desenvolvimento
-- Backups automáticos
+Utilizamos Firebase:
 
 ## ⚡ Performance
 
 Otimizações implementadas:
 
-- Caching
-- Rate limiting
-- Compression
-- Connection pooling
-- Query optimization
-- Load balancing
-- Clustering
 
 ## 🔐 Segurança
 
 Medidas de segurança:
 
 - HTTPS
-- JWT
-- CORS
-- Helmet
-- Rate limiting
-- Input validation
-- SQL injection protection
-- XSS protection
-- CSRF protection
-- Password hashing
-- Error masking
 
 ## 🧪 Testes
 
-Suíte de testes com Jest:
-
-- Testes unitários
-- Testes de integração
-- Testes e2e
-- Cobertura de código
-- Mocks
-- Fixtures
-- CI/CD
 
 ## 📊 Logging
 
 Sistema de logs:
 
-- Winston
-- Níveis de log
-- Rotação de arquivos
-- Formatação
-- Timestamps
-- Contexto
-- Alertas
 
 ## 🐳 Docker
 
 Containerização com Docker:
 
-- Dockerfile otimizado
-- Docker Compose
-- Multi-stage builds
-- Volume management
-- Network configuration
-- Environment variables
-- Health checks
 
 ## 📖 Documentação
 
@@ -194,4 +128,4 @@ Cada pasta contém seu próprio README com:
 
 ## 📝 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença da BEETS.

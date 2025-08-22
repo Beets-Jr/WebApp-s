@@ -1,59 +1,24 @@
 import { Router } from 'express';
 import { usersRouter } from './users';
-import { auth } from '../config/firebase';
+import { authMiddleware } from '@/middlewares/auth';
 
 const router = Router();
 
-router.use('/users', usersRouter);
+// Aplica o middleware de autenticação a TODAS as rotas definidas em 'usersRouter'
+// Ninguém pode acessar /users, /users/:id, etc., sem um token válido.
+router.use('/users', authMiddleware, usersRouter);
 
-// Rota de registro
-router.post('/register', async (req, res) => {
-  try {
-    const { email, password, name } = req.body;
-    
-    const userRecord = await auth.createUser({
-      email,
-      password,
-      displayName: name
-    });
-
-    const token = await auth.createCustomToken(userRecord.uid);
-
-    return res.status(201).json({
-      user: {
-        id: userRecord.uid,
-        name: userRecord.displayName,
-        email: userRecord.email
-      },
-      token
-    });
-  } catch (error: any) {
-    return res.status(400).json({ error: error.message });
-  }
-});
-
-// Rota de login
-router.post('/login', async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    
-    // Aqui você normalmente usaria o método de login do Firebase
-    // Por enquanto, vamos apenas verificar se o usuário existe
-    const user = await auth.getUserByEmail(email);
-    
-    const token = await auth.createCustomToken(user.uid);
-
+// Exemplo de outra rota protegida
+router.get('/me', authMiddleware, (req, res) => {
+  // Graças ao middleware, req.user contém os dados do usuário do token
+  if (req.user) {
     return res.json({
-      user: {
-        id: user.uid,
-        name: user.displayName,
-        email: user.email
-      },
-      token
+      id: req.user.uid,
+      email: req.user.email,
+      name: req.user.name,
     });
-  } catch (error: any) {
-    return res.status(400).json({ error: error.message });
   }
+  return res.status(404).json({ error: 'Usuário não encontrado' });
 });
 
-export { router }; 
+export { router };

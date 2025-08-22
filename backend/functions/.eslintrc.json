@@ -4,24 +4,25 @@
     "node": true,
     "jest": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 12,
+    "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": [
-    "@typescript-eslint"
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended" // Essencial: Integra o Prettier e desativa regras conflitantes
   ],
   "rules": {
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    // As regras de formatação (indent, quotes, semi, etc.) foram removidas.
+    // O Prettier cuidará de tudo isso.
+    // Você pode manter regras de qualidade de código aqui, se desejar.
+    "@typescript-eslint/no-explicit-any": "warn", // Mudado para "warn" em vez de "off" como sugestão
+    "@typescript-eslint/no-namespace": [
+      "error",
+      { "allowDeclarations": true } // Permite 'namespace' em arquivos de declaração (.d.ts)
+    ]
   }
-} 
+}

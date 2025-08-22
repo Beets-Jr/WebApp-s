@@ -18,4 +18,4 @@ export interface UpdateUserDTO {
   name?: string;
   email?: string;
   role?: 'admin' | 'user';
-} 
+}
