@@ -10,13 +10,30 @@ export class UserController {
 
   async create(req: Request, res: Response) {
     try {
-      const user = await this.userService.create(req.body);
+      // Os dados principais vêm do token decodificado, não do corpo da requisição.
+      const authenticatedUser = req.user;
+      const { name } = req.body;
+
+      if (!authenticatedUser?.uid || !authenticatedUser?.email) {
+        return res
+          .status(403)
+          .json({ error: 'Dados de autenticação inválidos.' });
+      }
+
+      const userData = {
+        id: authenticatedUser.uid,
+        email: authenticatedUser.email,
+        name: name,
+      };
+
+      const user = await this.userService.create(userData);
       return res.status(201).json(user);
     } catch (error: any) {
       return res.status(400).json({ error: error.message });
     }
   }
 
+  // ... os outros métodos (findAll, findById, update, delete) permanecem iguais ...
   async findAll(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll();

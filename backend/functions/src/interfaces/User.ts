@@ -8,9 +8,9 @@ export interface User {
 }
 
 export interface CreateUserDTO {
+  id: any;
   name: string;
   email: string;
-  password: string;
   role?: 'admin' | 'user';
 }
 
