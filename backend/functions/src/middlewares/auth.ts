@@ -1,6 +1,6 @@
+import { auth } from '@/config/firebase';
 import { Request, Response, NextFunction } from 'express';
 import { DecodedIdToken } from 'firebase-admin/auth';
-import { auth } from 'src/config/firebase';
 
 /**
  * Para que o TypeScript reconheça a propriedade 'user' no objeto 'Request' do Express,
